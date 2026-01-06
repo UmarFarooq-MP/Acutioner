@@ -19,6 +19,13 @@ func (m *mockRepo) Save(a *auction.Auction) error {
 	return nil
 }
 
+func (m *mockRepo) ListOpen() ([]*auction.Auction, error) {
+	if m.auction != nil && m.auction.Status == auction.StatusOpen {
+		return []*auction.Auction{m.auction}, nil
+	}
+	return []*auction.Auction{}, nil
+}
+
 type mockBroadcaster struct {
 	events []map[string]any
 }
